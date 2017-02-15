@@ -2,6 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="io.muic.ooc.webapp.displayUser" %>
 <!DOCTYPE html>
 <html>
 
@@ -33,6 +34,24 @@
             return;
         }
     %>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete <b><i class="title"></i></b> record, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger btn-ok">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-12" id="content-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -63,43 +82,19 @@
                                     <thead>
                                         <tr>
                                             <th><span>Username</span></th>
+                                            <th><span>Firstname</span></th>
+                                            <th><span>Lastname</span></th>
                                             <th>&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                                <%
-                                                    try{
-                                                    Statement statement2;
-                                                    Connection connection2;
-                                                    connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","watermelon123");
-                                                    statement2 = connection2.createStatement();
-                                                    ResultSet rs =statement2.executeQuery("select * from users");
-                                                    while(rs.next()){
-                                                %>
-                                        <tr>
-                                            <td>
-                                                <%= rs.getString("username") %>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary pull-right">Edit</a>
-                                                <% if (!rs.getString("username").equals(session.getAttribute("user"))){ %>
-                                                   <a href="#" class="btn btn-primary pull-right">Delete</a>
-                                                <%}%>
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                        <%
+                                            displayUser display = new displayUser();
+                                            String view = display.view(session.getAttribute("user").toString());
+                                        %>
+                                        <%= view %>
                                     </tbody>
                                 </table>
-                                <%
-                                        rs.close();
-                                        statement2.close();
-                                        connection2.close();
-                                    }
-                                    catch(Exception e)
-                                    {
-                                        e.printStackTrace();
-                                    }
-                                %>
                             </div>
                         </div>
                     </div>
@@ -114,7 +109,7 @@
     <script src="js/userList/jquery.js"></script>
     <script src="js/userList/bootstrap.js"></script>
     <script src="js/userList/scripts.js"></script>
-
+    <script src="js/user.js"></script>
 </body>
 
 </html>

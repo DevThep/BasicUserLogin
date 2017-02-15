@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,14 +38,22 @@
                     <div class="panel white-alpha-90">
                         <div class="panel-heading">
                             <div class="panel-title text-center">
-                                <h2>Edit <span class="text-primary">Information</span></h2></div>
+                                <h2>Edit <span class="text-primary">${userEdit}</span></h2></div>
                         </div>
                         <div class="panel-body">
                             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                             <form id="loginform" class="form-horizontal" role="form">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="login-username" type="text" class="form-control" name="name" value="" placeholder="username">
+                                    <input id="login-username" type="text" class="form-control" name="name" value=${userEdit} placeholder="username">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input id="firstname" type="text" class="form-control" name="name" value="${fname}" placeholder="firstname">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input id="lastname" type="text" class="form-control" name="name" value="${lname}"s placeholder="lastname">
                                 </div>
                                 <div class="input-group center">
                                   <span id="btn-login" style="border-left: 0px"><a href="#" class="btn btn-success">Edit</a></span>
@@ -73,6 +82,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.backstretch.min.js"></script>
+
     <script>
         Pace.on('hide', function() {
             $("#container").fadeIn('0');

@@ -42,15 +42,15 @@
                             <form id="loginform" class="form-horizontal" role="form">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username">
+                                    <input id="add-username" type="text" class="form-control" name="username" value="" placeholder="username">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                                    <input id="add-password" type="password" class="form-control" name="password" placeholder="password">
                                 </div>
 
                                 <div class="input-group center">
-                                  <span id="btn-login" style="border-left: 0px"><a href="#" class="btn btn-success">Add</a></span>
+                                  <span id="btn-add" style="border-left: 0px"><a href="#" class="btn btn-success">Add</a></span>
                                 </div>
                             </form>
                             <p id="output1" class="error-text"></p>

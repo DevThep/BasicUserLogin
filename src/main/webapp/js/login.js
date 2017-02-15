@@ -2,7 +2,6 @@ var $username = $('#login-username');
 var $password = $('#login-password');
 var $output = $('#output1');
 var $output2 = $('#output2');
-var $form = $('#form');
 
 function isEmpty(str) {
 	return (0 === str.length);

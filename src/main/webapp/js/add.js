@@ -1,10 +1,7 @@
-var $username = $('#login-username');
-var $password = $('#login-password');
+var $username = $('#add-username');
+var $password = $('#add-password');
 var $output = $('#output1');
 var $output2 = $('#output2');
-// function add(couple){
-//     $output.append("<li> User : " + couple.user + " Pass:" + couple.pass + "</li>");
-// }
 
 function isEmpty(str) {
 	return (0 === str.length);
@@ -47,11 +44,17 @@ function checkPassword(inputtxt) {
 function sendPost(data) {
 	$.ajax({
 		type: 'POST',
-		url: '/user',
+		url: '/add',
 		data: data,
 		success: function(data) {
-			console.log("SUCCESS");
-            window.location = "/user";
+            console.log(data);
+            if (data === "bad"){
+                $username.val('');
+                $password.val('');
+                $output.html("Username already exists");
+            }else{
+                window.location = "/user";
+            }
 		},
 		error: function() {
 			// add(couple);
@@ -61,8 +64,8 @@ function sendPost(data) {
 	});
 }
 
-$("#btn-login").on('click', function() {
-	console.log("Login Button Clicked")
+$("#btn-add").on('click', function() {
+	console.log("Add Button Clicked")
 	$output.html("");
 	$output2.html("");
 	var couple = {

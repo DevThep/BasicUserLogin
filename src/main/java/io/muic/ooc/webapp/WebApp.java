@@ -14,9 +14,8 @@ import org.apache.catalina.webresources.StandardRoot;
 import javax.servlet.ServletException;
 
 public class WebApp {
-    public static final String MYSQL_DRIVER = "com.webapp.cj.jdbc.Driver";
-    public static final String MYSQL_URL = "jdbc:webapp://localhost/ooc_test?"
-            + "user=ooc&password=oocpass";
+    public static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/test";
     public static final MySQLJava mySQLJava = new MySQLJava(MYSQL_DRIVER,MYSQL_URL);
     public static void main(String args[]) throws Exception {
         Tomcat tomcat = new Tomcat();

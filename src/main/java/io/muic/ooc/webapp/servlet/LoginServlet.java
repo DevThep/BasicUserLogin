@@ -21,10 +21,6 @@ import static io.muic.ooc.webapp.WebApp.mySQLJava;
         urlPatterns = {"/login"}
 )
 public class LoginServlet extends HttpServlet {
-//    public static final String MYSQL_DRIVER = "com.webapp.cj.jdbc.Driver";
-//    public static final String MYSQL_URL = "jdbc:webapp://localhost/ooc_test?"
-//            + "user=ooc&password=oocpass";
-//    MySQLJava mySQLJava = new MySQLJava(MYSQL_DRIVER,MYSQL_URL);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -38,12 +34,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println("{ User : " + username + "\n  Pass : " + password + "\n}");
         PrintWriter out = resp.getWriter();
         try {
-            if (mySQLJava.validateLogin(username,password) == 0) {
-//                System.out.println("SUCCESS!");
-//                resp.setContentType("application/json");
-//                String json_str = String.format("{\"name\":\"%s\"}",username);
-//                JsonParser jsonParser = new JsonParser();
-//                JsonElement element = jsonParser.parse(json_str);
+            if (username != null && password != null && mySQLJava.validateLogin(username,password) == 0) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", username);
                 out.print("login success!");
