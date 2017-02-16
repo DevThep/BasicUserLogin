@@ -22,6 +22,45 @@ public class MySQLJava {
         this.jdbcDriverStr = jdbcDriverStr;
         this.jdbcURL = jdbcURL;
     }
+    public boolean userExist(String username){
+        boolean success = false;
+        try {
+            Class.forName(this.jdbcDriverStr);
+            connection = DriverManager.getConnection(jdbcURL,rt,pw);
+            PreparedStatement prepStmt = connection.prepareStatement("select username from users WHERE username=?");
+            prepStmt.setString(1,username);
+            ResultSet resultSet = prepStmt.executeQuery();
+            while(resultSet.next()){
+                String uname = resultSet.getString("username");
+                if (uname.equals(username)){
+                    success = true;
+                    break;
+                }
+            }
+        } finally {
+            close();
+            return success;
+        }
+    }
+
+    public boolean update(String userdb,String username,String firstname,String lastname){
+        boolean success = false;
+        try {
+            Class.forName(this.jdbcDriverStr);
+            connection = DriverManager.getConnection(jdbcURL,rt,pw);
+            PreparedStatement prepStmt = connection.prepareStatement("UPDATE users SET username=?, firstname=?,lastname=? WHERE username=?");
+            prepStmt.setString(1,username);
+            prepStmt.setString(2,firstname);
+            prepStmt.setString(3,lastname);
+            prepStmt.setString(4,userdb);
+            prepStmt.executeUpdate();
+            success = true;
+//            System.out.println("success");
+        } finally {
+            close();
+            return success;
+        }
+    }
 
     public ArrayList<String> readData() throws Exception {
         ArrayList<String> lst = new ArrayList<>();
@@ -36,12 +75,14 @@ public class MySQLJava {
                 String lname = resultSet.getString("lastname");
                 String build = uname + " " + fname + " " + lname;
                 lst.add(build);
+//                System.out.println(build);
             }
         } finally {
             close();
             return lst;
         }
     }
+
     public int validateLogin(String username,String password) throws  Exception {
         boolean success = false;
         try{
@@ -97,38 +138,6 @@ public class MySQLJava {
         }
     };
 
-    public int editUser(String username,String firstname,String lastname) throws  Exception {
-        boolean success = true;
-        try{
-            Class.forName(this.jdbcDriverStr);
-            connection = DriverManager.getConnection(jdbcURL,rt,pw);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM users");
-            while (resultSet.next()) {
-                String existingUserName = resultSet.getString("username");
-                if (existingUserName.equals(username)) {
-                    success = false;
-                    break;
-                }
-            }
-        }finally {
-            if (success){
-                String queryString = "UPDATE users SET username=?,firstname=?,lastname=?";
-                PreparedStatement prepStmt = connection.prepareStatement(queryString);
-                prepStmt.setString(1,username);
-                prepStmt.setString(2,firstname);
-                prepStmt.setString(2,lastname);
-                prepStmt.executeUpdate();
-                close();
-                return 0;
-            }
-            else {
-                close();
-                return -1;
-            }
-        }
-    };
-
     public String[] getEditInfo(String username){
         String[] store = new String[3];
         try{
@@ -159,6 +168,7 @@ public class MySQLJava {
             e.printStackTrace();
         }finally {
             close();
+            if (store[0]==null) return new String[1];
             return store;
         }
     }
@@ -195,7 +205,7 @@ public class MySQLJava {
                 connection.close();
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

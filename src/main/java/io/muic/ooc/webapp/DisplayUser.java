@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import static io.muic.ooc.webapp.WebApp.mySQLJava;
 
 
-public class displayUser {
+public class DisplayUser {
 
     public String view(String user) throws Exception{
         ArrayList<String> rs =  mySQLJava.readData();
@@ -17,14 +17,12 @@ public class displayUser {
             String u = split[0];
             String fn = split[1];
             String ln = split[2];
-
-            if (fn.equals("null")){
+            if (fn.equals("null") || fn.equals("NULL")){
                 fn = "";
             }
-            if(ln.equals("null")){
+            if(ln.equals("null") || ln.equals("NULL")){
                 ln = "";
             }
-
             if (!u.equals(user)){
                 String entry = String.format("<tr><td>%s</td><td>%s</td><td>%s</td>",u,fn,ln);
                 sb.append(entry);

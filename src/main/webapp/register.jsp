@@ -8,7 +8,7 @@
     <title>Add User</title>
 
     <!-- favicon -->
-    <link rel="icon" href="images/transformer.ico">
+    <link rel="icon" href="images/favicon.ico">
 
     <!-- Bootstrap -->
     <script src="js/pace.js"></script>
@@ -32,7 +32,7 @@
         <section id="form">
             <div class="container">
                 <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel white-alpha-90">
+                    <div class="panel black-alpha-90">
                         <div class="panel-heading">
                             <div class="panel-title text-center">
                                 <h2>Add user to <span class="text-primary">OOC</span></h2></div>
@@ -83,12 +83,8 @@
         Pace.on('hide', function() {
             $("#container").fadeIn('0');
             $.backstretch([
-                "images/buildings.jpg",
-                "images/paris_night.jpg"
-            ], {
-                duration: 5000,
-                fade: 1000
-            });
+                "images/map.jpg"
+            ])
         });
     </script>
 </body>

@@ -2,7 +2,7 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="io.muic.ooc.webapp.displayUser" %>
+<%@ page import="io.muic.ooc.webapp.DisplayUser" %>
 <!DOCTYPE html>
 <html>
 
@@ -13,15 +13,15 @@
     <title>Users</title>
 
     <!-- bootstrap -->
-    <link rel="icon" href="images/transformer.ico">
+    <link rel="icon" href="images/favicon.ico">
     <link href="css/userList/bootstrap.css" rel="stylesheet" />
 
     <!-- libraries -->
     <link href="css/libs/font-awesome.css" type="text/css" rel="stylesheet" />
 
     <!-- global styles -->
-    <link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
-    <link rel="stylesheet" type="text/css" href="css/compiled/elements.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/elements.css">
 </head>
 
 <body>
@@ -89,7 +89,7 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            displayUser display = new displayUser();
+                                            DisplayUser display = new DisplayUser();
                                             String view = display.view(session.getAttribute("user").toString());
                                         %>
                                         <%= view %>

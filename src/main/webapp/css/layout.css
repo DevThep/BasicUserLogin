@@ -19,6 +19,7 @@ h1 {
 h2 {
 	clear: both;
     font-size: 1.8em;
+    color: white;
     margin-bottom: 10px;
     padding: 10px 0 10px 30px;
 }
@@ -267,6 +268,7 @@ blockquote.pull-right:before {
 }
 .btn {
 	border-radius: 0;
+	color: black;
 	/* border: none; */
 }
 .navbar-nav {
@@ -863,7 +865,7 @@ blockquote.pull-right:before {
 
 
 #content-wrapper {
-	background: #eeeeee;
+	background: black;
 	height: 100%;
 	margin-top: 0;
 	margin-bottom: 0;

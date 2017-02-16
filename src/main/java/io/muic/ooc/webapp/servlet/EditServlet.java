@@ -1,16 +1,20 @@
 package io.muic.ooc.webapp.servlet;
 
 
+import io.muic.ooc.webapp.InputCheck;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import static io.muic.ooc.webapp.WebApp.mySQLJava;
+import static java.sql.JDBCType.NULL;
 
 @WebServlet(
         name = "EditServlet",
@@ -24,27 +28,58 @@ public class EditServlet extends HttpServlet {
         String[] store;
         System.out.println(userEdit);
         store = mySQLJava.getEditInfo(userEdit);
-        System.out.println(store[1]);
-        System.out.println(store[2]);
-        req.setAttribute("userEdit", userEdit);
-        req.setAttribute("fname", store[1]);
-        req.setAttribute("lname", store[2]);
-        RequestDispatcher rd = req.getRequestDispatcher("edit.jsp");
-        rd.forward(req, resp);
+        if (store.length==1){
+            resp.sendRedirect("/user");
+        }else{
+            req.setAttribute("userEdit", userEdit);
+            if (store[1].equals("NULL")){
+                store[1]="";
+            }
+            if (store[2].equals("NULL")){
+                store[2]="";
+            }
+            req.setAttribute("fname", store[1]);
+            req.setAttribute("lname", store[2]);
+            RequestDispatcher rd = req.getRequestDispatcher("edit.jsp");
+            rd.forward(req, resp);
+        }
     }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException{
-//        String userEdit = req.getParameter("bt");
-//        String[] store;
-//        System.out.println(userEdit);
-//        store = mySQLJava.getEditInfo(userEdit);
-//        System.out.println(store[1]);
-//        System.out.println(store[2]);
-//        req.setAttribute("userEdit", userEdit);
-//        req.setAttribute("fname", store[1]);
-//        req.setAttribute("lname", store[2]);
-//        RequestDispatcher rd = req.getRequestDispatcher("edit.jsp");
-//        rd.forward(req, resp);
+        String userEdit = req.getParameter("identity");
+        String userNew = req.getParameter("name");
+        String firstNew = req.getParameter("fname");
+        String lastNew = req.getParameter("lname");
+        InputCheck checker = new InputCheck();
+        if (!checker.checkUser(userEdit)){
+            req.setAttribute("userEdit", userEdit);
+            req.setAttribute("fname", firstNew);
+            req.setAttribute("lname", lastNew);
+            req.setAttribute("prob","Invalid username format!");
+            RequestDispatcher rd = req.getRequestDispatcher("edit.jsp");
+            rd.forward(req, resp);
+            return;
+        }
+//        HttpSession session = req.getSession();
+        if (userNew==null){
+            userNew = userEdit;
+        }
+
+        if(firstNew==null || firstNew==""){
+            System.out.println("Here 1");
+            firstNew= "NULL";
+        }
+        if(lastNew==null || lastNew==""){
+            System.out.println("Here 2");
+            lastNew="NULL";
+        }
+        if (mySQLJava.userExist(userEdit)){
+            if(mySQLJava.update(userEdit,userNew,firstNew,lastNew)){
+//                System.out.println("Here");
+                RequestDispatcher rd = req.getRequestDispatcher("userList.jsp");
+                rd.forward(req, resp);
+            }
+        }
 
     }
 }

@@ -115,7 +115,7 @@ h3 .small {
 	border: none;
 }
 .btn-primary {
-	background-color: #3fcfbb;
+	background-color: white;
 	border-color: #2fb2a0;
 }
 .btn-primary:hover,
@@ -123,7 +123,7 @@ h3 .small {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-	background-color: #38c2af;
+	background-color: #A9A9A9;
 	border-color: #2aa493;
 }
 .btn-success {
