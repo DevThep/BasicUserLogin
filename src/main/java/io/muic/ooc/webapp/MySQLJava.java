@@ -90,13 +90,18 @@ public class MySQLJava {
             connection = DriverManager.getConnection(jdbcURL,rt,pw);
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from users");
+            Password crypt = new Password();
             while (resultSet.next()) {
                 String existingUserName = resultSet.getString("username");
-                String existingPassword = resultSet.getString("password");
+                String hashed_Password = resultSet.getString("password");
                 //System.out.println(existingUserName);//System.out.println(existingPassword);
-                if (existingUserName.equals(username) && existingPassword.equals(password)) {
-                    success = true;
-                    break;
+                if (existingUserName.equals(username)) {
+                    if (crypt.checkPassword(password,hashed_Password)){
+                        success = true;
+                        break;
+                    }else{
+                        break;
+                    }
                 }
             }
         }finally {
@@ -123,10 +128,11 @@ public class MySQLJava {
             }
         }finally {
             if (success){
+                Password crypt = new Password();
                 String queryString = "INSERT INTO users (username,password) VALUES (?,?)";
                 PreparedStatement prepStmt = connection.prepareStatement(queryString);
                 prepStmt.setString(1,username);
-                prepStmt.setString(2,password);
+                prepStmt.setString(2,crypt.hashPassword(password));
                 prepStmt.executeUpdate();
                 close();
                 return 0;

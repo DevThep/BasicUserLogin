@@ -1,9 +1,5 @@
 package io.muic.ooc.webapp.servlet;
 
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

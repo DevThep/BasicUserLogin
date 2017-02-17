@@ -1,8 +1,7 @@
 package io.muic.ooc.webapp.servlet;
 
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,14 +27,10 @@ public class AddServlet extends HttpServlet {
             throws ServletException, IOException{
         String username = req.getParameter("user");
         String password = req.getParameter("pass");
-        System.out.println("ADD { \n User : " + username + "\n  Pass : " + password + "\n}");
-//        resp.setContentType("application/json");
+//        System.out.println("ADD { \n User : " + username + "\n  Pass : " + password + "\n}");
         PrintWriter out = resp.getWriter();
         try {
             if (username != null && password !=null && mySQLJava.addUser(username,password)==0) {
-//                String json_str = String.format("{\"name\":\"%s\"}",username);
-//                JsonParser jsonParser = new JsonParser();
-//                JsonElement element = jsonParser.parse(json_str);;
                 out.print("add success");
                 out.flush();
             }

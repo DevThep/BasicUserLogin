@@ -51,6 +51,10 @@ public class EditServlet extends HttpServlet {
         String firstNew = req.getParameter("fname");
         String lastNew = req.getParameter("lname");
         InputCheck checker = new InputCheck();
+        System.out.println("User new : " + userNew);
+        if (userNew==null || userNew.equals("")){
+            userNew = userEdit;
+        }
         if (!checker.checkUser(userNew)){
             req.setAttribute("userEdit", userEdit);
             req.setAttribute("fname", firstNew);
@@ -61,9 +65,6 @@ public class EditServlet extends HttpServlet {
             return;
         }
 //        HttpSession session = req.getSession();
-        if (userNew==null){
-            userNew = userEdit;
-        }
         System.out.println("Session " + req.getSession().getAttribute("user"));
         System.out.println("UserEdit : " + userEdit);
         if(req.getSession().getAttribute("user").equals(userEdit)){

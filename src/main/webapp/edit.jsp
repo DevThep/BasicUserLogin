@@ -65,7 +65,7 @@
             </div>
         </section>
         <footer>
-            <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
                 <div class="container text-center">
                     <div class="footer-content">
                         <a href="/login" class="btn btn-info"> Back </a>
