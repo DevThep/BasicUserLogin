@@ -21,7 +21,7 @@ public class WebApp {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
         String webappDirLocation = "src/main/webapp";
-        StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+        StandardContext ctx = (StandardContext) tomcat.addWebapp("", new File(webappDirLocation).getAbsolutePath());
         File additionWebInfClasses = new File("target/classes");
         WebResourceRoot resources = new StandardRoot(ctx);
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
