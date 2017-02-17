@@ -26,7 +26,7 @@ public class EditServlet extends HttpServlet {
             throws ServletException, IOException {
         String userEdit = req.getParameter("bt");
         String[] store;
-        System.out.println(userEdit);
+//        System.out.println(userEdit);
         store = mySQLJava.getEditInfo(userEdit);
         if (store.length==1){
             resp.sendRedirect("/user");
@@ -51,7 +51,7 @@ public class EditServlet extends HttpServlet {
         String firstNew = req.getParameter("fname");
         String lastNew = req.getParameter("lname");
         InputCheck checker = new InputCheck();
-        System.out.println("User new : " + userNew);
+//        System.out.println("User new : " + userNew);
         if (userNew==null || userNew.equals("")){
             userNew = userEdit;
         }
@@ -65,24 +65,22 @@ public class EditServlet extends HttpServlet {
             return;
         }
 //        HttpSession session = req.getSession();
-        System.out.println("Session " + req.getSession().getAttribute("user"));
-        System.out.println("UserEdit : " + userEdit);
+//        System.out.println("Session " + req.getSession().getAttribute("user"));
+//        System.out.println("UserEdit : " + userEdit);
         if(req.getSession().getAttribute("user").equals(userEdit)){
             req.getSession().setAttribute("user",userNew);
-            System.out.println("Session " + req.getSession().getAttribute("user"));
+//            System.out.println("Session " + req.getSession().getAttribute("user"));
         }
 
         if(firstNew==null || firstNew==""){
-            System.out.println("Here 1");
             firstNew= "NULL";
         }
         if(lastNew==null || lastNew==""){
-            System.out.println("Here 2");
             lastNew="NULL";
         }
         if (mySQLJava.userExist(userEdit)){
             if(mySQLJava.update(userEdit,userNew,firstNew,lastNew)){
-                System.out.println("here");
+//                System.out.println("here");
                 resp.sendRedirect("/user");
             }else{
                 resp.sendRedirect("/user");

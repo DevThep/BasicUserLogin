@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = req.getParameter("user");
         String password = req.getParameter("pass");
-        System.out.println("{ User : " + username + "\n  Pass : " + password + "\n}");
+//        System.out.println("{ User : " + username + "\n  Pass : " + password + "\n}");
         PrintWriter out = resp.getWriter();
         try {
             if (username != null && password != null && mySQLJava.validateLogin(username,password) == 0) {
