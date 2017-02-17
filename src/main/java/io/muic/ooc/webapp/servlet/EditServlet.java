@@ -51,7 +51,7 @@ public class EditServlet extends HttpServlet {
         String firstNew = req.getParameter("fname");
         String lastNew = req.getParameter("lname");
         InputCheck checker = new InputCheck();
-        if (!checker.checkUser(userEdit)){
+        if (!checker.checkUser(userNew)){
             req.setAttribute("userEdit", userEdit);
             req.setAttribute("fname", firstNew);
             req.setAttribute("lname", lastNew);
@@ -64,6 +64,12 @@ public class EditServlet extends HttpServlet {
         if (userNew==null){
             userNew = userEdit;
         }
+        System.out.println("Session " + req.getSession().getAttribute("user"));
+        System.out.println("UserEdit : " + userEdit);
+        if(req.getSession().getAttribute("user").equals(userEdit)){
+            req.getSession().setAttribute("user",userNew);
+            System.out.println("Session " + req.getSession().getAttribute("user"));
+        }
 
         if(firstNew==null || firstNew==""){
             System.out.println("Here 1");
@@ -75,10 +81,13 @@ public class EditServlet extends HttpServlet {
         }
         if (mySQLJava.userExist(userEdit)){
             if(mySQLJava.update(userEdit,userNew,firstNew,lastNew)){
-//                System.out.println("Here");
-                RequestDispatcher rd = req.getRequestDispatcher("userList.jsp");
-                rd.forward(req, resp);
+                System.out.println("here");
+                resp.sendRedirect("/user");
+            }else{
+                resp.sendRedirect("/user");
             }
+        }else{
+            resp.sendRedirect("/user");
         }
 
     }

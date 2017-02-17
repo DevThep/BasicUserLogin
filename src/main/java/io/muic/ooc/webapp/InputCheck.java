@@ -10,15 +10,11 @@ public class InputCheck {
     }
     private boolean checkfirstChar(String str){
         int first = (int) str.charAt(0);
-        return (first >= 65 && first<=90) && (first >= 97 && first <= 192);
+        return (first >= 65 && first<=90) || (first >= 97 && first <= 192);
     }
 
     public boolean checkUser(String str){
-        if (isEmpty(str)){
-            return false;
-        }else if (!checkLength(str)){
-            return false;
-        }else if (!checkfirstChar(str)){
+        if (isEmpty(str) || !checkfirstChar(str) || !checkLength(str)) {
             return false;
         }else{
             return true;

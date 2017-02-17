@@ -12,6 +12,7 @@ public class DisplayUser {
         ArrayList<String> rs =  mySQLJava.readData();
         StringBuilder sb=new StringBuilder();
         StringBuilder userInfo=new StringBuilder();
+        System.out.println("Current Session : " + user);
         for(String i: rs){
             String[] split = i.split(" ");
             String u = split[0];
