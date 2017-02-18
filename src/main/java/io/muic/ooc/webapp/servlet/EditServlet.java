@@ -55,18 +55,16 @@ public class EditServlet extends HttpServlet {
         if (userNew==null || userNew.equals("")){
             userNew = userEdit;
         }
-        if (!checker.checkUser(userNew)){
+        if (!checker.checkUser(userNew) || mySQLJava.userExist(userNew) && !userNew.equals(userEdit)){
             req.setAttribute("userEdit", userEdit);
             req.setAttribute("fname", firstNew);
             req.setAttribute("lname", lastNew);
-            req.setAttribute("prob","Invalid username format!");
+            req.setAttribute("prob","Invalid username, it may already exist!");
             RequestDispatcher rd = req.getRequestDispatcher("edit.jsp");
             rd.forward(req, resp);
             return;
         }
-//        HttpSession session = req.getSession();
-//        System.out.println("Session " + req.getSession().getAttribute("user"));
-//        System.out.println("UserEdit : " + userEdit);
+
         if(req.getSession().getAttribute("user").equals(userEdit)){
             req.getSession().setAttribute("user",userNew);
 //            System.out.println("Session " + req.getSession().getAttribute("user"));
