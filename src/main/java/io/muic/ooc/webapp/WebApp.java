@@ -19,7 +19,7 @@ public class WebApp {
     public static final MySQLJava mySQLJava = new MySQLJava(MYSQL_DRIVER,MYSQL_URL);
     public static void main(String args[]) throws Exception {
         Tomcat tomcat = new Tomcat();
-        tomcat.setPort(80);
+        tomcat.setPort(8080);
         String webappDirLocation = "src/main/webapp";
         StandardContext ctx = (StandardContext) tomcat.addWebapp("", new File(webappDirLocation).getAbsolutePath());
         File additionWebInfClasses = new File("target/classes");

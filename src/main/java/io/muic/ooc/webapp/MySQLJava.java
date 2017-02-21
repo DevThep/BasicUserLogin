@@ -16,7 +16,7 @@ public class MySQLJava {
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
     private String rt = "root";
-    private String pw = "nVeddb1";
+    private String pw = "watermelon123";
 
     public MySQLJava(String jdbcDriverStr, String jdbcURL) {
         this.jdbcDriverStr = jdbcDriverStr;
